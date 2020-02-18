@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `soundcloud_keys`(
 DROP TABLE IF EXISTS `spotify_keys`;
 
 CREATE TABLE IF NOT EXISTS `spotify_keys`(
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,  -- secret token (to be added later)
   PRIMARY KEY (`id`));
 
 DROP TABLE IF EXISTS `profiles`;
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `users`(
   `email` VARCHAR(30) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
   `profile_id` INT NOT NULL,
-  `password` --?
-  `location` --?
+  `password` VARCHAR(64) NOT NULL -- SHA256
+  `zipcode` CHAR(5) NOT NULL -- Just first 5 is enough
   `dob` DATE NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id`) REFERENCES profiles(`id`));
