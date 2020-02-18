@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `profiles`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `about_me` VARCHAR(140),
   `bio` VARCHAR(1000),
-  `pic_path` VARCHAR(21844) CHARACTER SET utf8,
+  `pic_path` VARCHAR(1000) CHARACTER SET utf8,
   `spotify_key` INT,
   `soundcloud_key` INT,
   PRIMARY KEY (`id`),
