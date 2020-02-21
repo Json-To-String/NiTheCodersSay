@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `users`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(30) NOT NULL,
   `username` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(64) NOT NULL, -- SHA256
+  `password` VARCHAR(128) NOT NULL, -- SHA256
   `zipcode` CHAR(5) NOT NULL, -- Just first 5 is enough
   `dob` DATE NOT NULL,
   `name` VARCHAR(100) NOT NULL,
