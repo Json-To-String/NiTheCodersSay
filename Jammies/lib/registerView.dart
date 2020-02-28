@@ -70,15 +70,6 @@ class registerFieldState extends State<registerField> {
                         )),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text(
-                        'Already have an account?',
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
                         inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(100)],
                         validator: (value) {
@@ -206,7 +197,24 @@ class registerFieldState extends State<registerField> {
                         child: Text("Register new account"),
                         onPressed: () {
                           _submitForm;
-                          Navigator.pushNamed(context, '/discover');
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'Already have an account?',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: RaisedButton(
+                        child: Text("Login"),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
                         },
                       ),
                     ),
@@ -237,6 +245,7 @@ class registerFieldState extends State<registerField> {
         Scaffold
             .of(context)
             .showSnackBar(SnackBar(content: Text('Registered successfully')));
+        Navigator.pushNamed(context, '/discover');
       }
       else {
         Scaffold

@@ -91,9 +91,32 @@ class loginFieldState extends State<loginField> {
                         labelText: 'Password',
                       ),
                     ),
-                    RaisedButton(
-                      child: Text("Login"),
-                      onPressed: _submitForm,
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: RaisedButton(
+                          child: Text("Login"),
+                          onPressed: () {
+                            _submitForm;
+                          },
+                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'Need an account?',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: RaisedButton(
+                        child: Text("Register"),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -119,6 +142,7 @@ class loginFieldState extends State<loginField> {
         Scaffold
             .of(context)
             .showSnackBar(SnackBar(content: Text('Login successful')));
+        Navigator.pushNamed(context, '/discover');
       }
       else {
         Scaffold

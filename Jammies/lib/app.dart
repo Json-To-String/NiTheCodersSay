@@ -5,6 +5,7 @@ import 'loginView.dart';
 import 'registerView.dart';
 import 'discoverView.dart';
 import 'loginView.dart';
+import 'initialView.dart';
 
 class JamFinderApp extends StatelessWidget {
   @override
@@ -18,11 +19,13 @@ class JamFinderApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => registerField(),
+        '/': (context) => initialView(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/discover': (context) => discoverView(),
         '/login': (context) => loginField(),
         '/register': (context) => registerField(),
+        '/jam': (context) => jamView(),
+        '/chat': (context) => chatView(),
       },
     );
   }
