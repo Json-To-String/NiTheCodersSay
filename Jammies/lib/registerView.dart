@@ -195,9 +195,7 @@ class registerFieldState extends State<registerField> {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: RaisedButton(
                         child: Text("Register new account"),
-                        onPressed: () {
-                          _submitForm;
-                        },
+                        onPressed: _submitForm,
                       ),
                     ),
                     Padding(
