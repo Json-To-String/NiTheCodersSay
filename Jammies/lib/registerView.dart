@@ -240,9 +240,6 @@ class registerFieldState extends State<registerField> {
       'zipcode': zcController.text, 'dob': dateController.text, 'username': userNameController.text} );
 
       if(response.statusCode == 200) {
-        Scaffold
-            .of(context)
-            .showSnackBar(SnackBar(content: Text('Registered successfully')));
         Navigator.pushNamed(context, '/discover');
       }
       else {

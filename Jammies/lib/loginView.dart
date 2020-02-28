@@ -95,9 +95,7 @@ class loginFieldState extends State<loginField> {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                         child: RaisedButton(
                           child: Text("Login"),
-                          onPressed: () {
-                            _submitForm;
-                          },
+                          onPressed: _submitForm,
                         ),
                     ),
                     Padding(
@@ -139,9 +137,9 @@ class loginFieldState extends State<loginField> {
       final response = await http.post('http://jam.smpark.in/login', body: { 'email': emailController.text, 'password': "$hash" } );
 
       if(response.statusCode == 200) {
-        Scaffold
-            .of(context)
-            .showSnackBar(SnackBar(content: Text('Login successful')));
+//        Scaffold
+//            .of(context)
+//            .showSnackBar(SnackBar(content: Text('Login successful')));
         Navigator.pushNamed(context, '/discover');
       }
       else {
