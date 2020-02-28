@@ -37,7 +37,7 @@ class loginFieldState extends State<loginField> {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("LOGIN"),
+          title: Text("Login"),
         ),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +57,12 @@ class loginFieldState extends State<loginField> {
                           padding: EdgeInsets.symmetric(vertical: 15.0),
                           child: FittedBox(
                             fit: BoxFit.fill, // otherwise the logo will be tiny
-                            child: const FlutterLogo(),
+                            child: Image.asset(
+                              "assets/icon/icon.png",
+                              height: 400,
+                              width: 400,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         )),
                     Padding(
@@ -137,9 +142,6 @@ class loginFieldState extends State<loginField> {
       final response = await http.post('http://jam.smpark.in/login', body: { 'email': emailController.text, 'password': "$hash" } );
 
       if(response.statusCode == 200) {
-//        Scaffold
-//            .of(context)
-//            .showSnackBar(SnackBar(content: Text('Login successful')));
         Navigator.pushNamed(context, '/discover');
       }
       else {

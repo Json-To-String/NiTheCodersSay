@@ -65,7 +65,12 @@ class registerFieldState extends State<registerField> {
                           padding: EdgeInsets.symmetric(vertical: 15.0),
                           child: FittedBox(
                             fit: BoxFit.fill, // otherwise the logo will be tiny
-                            child: const FlutterLogo(),
+                            child: Image.asset(
+                              "assets/icon/icon.png",
+                              height: 400,
+                              width: 400,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         )),
                     Padding(
