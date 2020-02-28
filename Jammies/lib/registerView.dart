@@ -70,6 +70,15 @@ class registerFieldState extends State<registerField> {
                         )),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'Already have an account?',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
                         inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(100)],
                         validator: (value) {
@@ -195,7 +204,10 @@ class registerFieldState extends State<registerField> {
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: RaisedButton(
                         child: Text("Register new account"),
-                        onPressed: _submitForm,
+                        onPressed: () {
+                          _submitForm;
+                          Navigator.pushNamed(context, '/discover');
+                        },
                       ),
                     ),
                   ],
