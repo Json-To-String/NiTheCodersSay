@@ -18,11 +18,10 @@ class myProfileView extends StatelessWidget {
                 width: 200,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
-                  //EdgeInsets.symmetric
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.indigo,
-                    //backgroundImage: AssetImage('images/Mahmud_200.jpg'),
+                    //backgroundImage: AssetImage(''),
                   ),
                 )),
             Padding(

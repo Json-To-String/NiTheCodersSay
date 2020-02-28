@@ -4,8 +4,8 @@ import 'jamView.dart';
 import 'loginView.dart';
 import 'registerView.dart';
 import 'discoverView.dart';
-import 'loginView.dart';
 import 'initialView.dart';
+import 'myProfileView.dart';
 
 class JamFinderApp extends StatelessWidget {
   @override
@@ -26,6 +26,7 @@ class JamFinderApp extends StatelessWidget {
         '/register': (context) => registerField(),
         '/jam': (context) => jamView(),
         '/chat': (context) => chatView(),
+        '/myProfileView': (context) => myProfileView(),
       },
     );
   }
