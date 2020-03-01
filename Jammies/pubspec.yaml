@@ -36,9 +36,17 @@ dependencies:
 
 dev_dependencies:
   pedantic: ^1.8.0
+  flutter_launcher_icons: "^0.7.3"
   dependencies:
 
 
 
 flutter:
     uses-material-design: true
+    assets:
+      - "assets/icon/icon.png"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"

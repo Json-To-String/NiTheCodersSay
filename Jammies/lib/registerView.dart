@@ -65,7 +65,12 @@ class registerFieldState extends State<registerField> {
                           padding: EdgeInsets.symmetric(vertical: 15.0),
                           child: FittedBox(
                             fit: BoxFit.fill, // otherwise the logo will be tiny
-                            child: const FlutterLogo(),
+                            child: Image.asset(
+                              "assets/icon/icon.png",
+                              height: 400,
+                              width: 400,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         )),
                     Padding(
@@ -198,6 +203,24 @@ class registerFieldState extends State<registerField> {
                         onPressed: _submitForm,
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'Already have an account?',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: RaisedButton(
+                        child: Text("Login"),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -222,9 +245,7 @@ class registerFieldState extends State<registerField> {
       'zipcode': zcController.text, 'dob': dateController.text, 'username': userNameController.text} );
 
       if(response.statusCode == 200) {
-        Scaffold
-            .of(context)
-            .showSnackBar(SnackBar(content: Text('Registered successfully')));
+        Navigator.pushNamed(context, '/discover');
       }
       else {
         Scaffold
