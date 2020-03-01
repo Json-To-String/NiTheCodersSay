@@ -5,6 +5,7 @@ import 'loginView.dart';
 import 'registerView.dart';
 import 'discoverView.dart';
 import 'loginView.dart';
+import 'editProfile.dart';
 
 class JamFinderApp extends StatelessWidget {
     @override
@@ -15,7 +16,7 @@ class JamFinderApp extends StatelessWidget {
                 primarySwatch: Colors.indigo,
             ),
             home: Scaffold(
-                body: registerField(),
+                body: editProfile(),
             ),
         );
     }
