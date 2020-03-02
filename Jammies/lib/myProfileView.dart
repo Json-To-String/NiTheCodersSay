@@ -11,8 +11,8 @@ class myProfileView extends StatelessWidget {
         height: 1000,
         width: 400,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
                 width: 200,
@@ -28,14 +28,26 @@ class myProfileView extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
                 _getName(),
+                textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold)
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                _getName(),
+                _getBio(),
+                textAlign: TextAlign.left,
               ),
             ),
+        Align(
+          alignment: Alignment.topRight,
+          child: RaisedButton(
+            child: Text("Edit"),
+            onPressed: () {
+              Navigator.pushNamed(context, '/editProfile');
+            },
+          ),
+        ),
           ],
         ),
       ),
@@ -45,6 +57,10 @@ class myProfileView extends StatelessWidget {
 
 
 _getName()  {
+  return 'Chloe';
+}
+
+_getBio()  {
   return 'Chloe';
 }
 

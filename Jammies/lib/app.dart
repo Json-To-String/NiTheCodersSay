@@ -19,7 +19,7 @@ class JamFinderApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => initialView(),
+        '/': (context) => myProfileView(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/discover': (context) => discoverView(),
         '/login': (context) => loginField(),
@@ -27,6 +27,7 @@ class JamFinderApp extends StatelessWidget {
         '/jam': (context) => jamView(),
         '/chat': (context) => chatView(),
         '/myProfileView': (context) => myProfileView(),
+        '/editView': (context) => editProfileView(),
       },
     );
   }
