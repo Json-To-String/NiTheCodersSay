@@ -147,11 +147,11 @@ class loginFieldState extends State<loginField> {
 
     }
       else {
-        return Alert(context: context, title: "RFLUTTER", desc: "Login Unsuccessful").show();
+        return Alert(context: context, title: "Login Unsuccessful").show();
       }
     }
     else {
-      return Alert(context: context, title: "RFLUTTER", desc: "Please fill out the fields properly").show();
+      return Alert(context: context, title: "Please fill out the fields properly").show();
     }
   }
 

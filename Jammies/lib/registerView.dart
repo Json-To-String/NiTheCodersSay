@@ -250,11 +250,11 @@ class registerFieldState extends State<registerField> {
         Navigator.pushNamed(context, '/discover');
       }
       else {
-        return Alert(context: context, title: "RFLUTTER", desc: response.body).show();
+        return Alert(context: context, title: response.body).show();
       }
     }
     else {
-      return Alert(context: context, title: "RFLUTTER", desc: "Please fill out the fields properly").show();
+      return Alert(context: context, title: "Please fill out the fields properly").show();
     }
   }
 
