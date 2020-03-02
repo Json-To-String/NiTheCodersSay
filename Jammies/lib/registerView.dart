@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'discoverView.dart';
 
 class registerField extends StatefulWidget {
   @override
@@ -248,16 +250,11 @@ class registerFieldState extends State<registerField> {
         Navigator.pushNamed(context, '/discover');
       }
       else {
-        Scaffold
-            .of(context)
-            .showSnackBar(SnackBar(content:
-              Text(response.body)));
+        return Alert(context: context, title: "RFLUTTER", desc: response.body).show();
       }
     }
     else {
-      Scaffold
-          .of(context)
-          .showSnackBar(SnackBar(content: Text('Please fill out fields properly')));
+      return Alert(context: context, title: "RFLUTTER", desc: "Please fill out the fields properly").show();
     }
   }
 
