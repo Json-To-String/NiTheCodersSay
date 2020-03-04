@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:password/password.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class loginField extends StatefulWidget {
   @override
@@ -143,18 +144,14 @@ class loginFieldState extends State<loginField> {
 
       if(response.statusCode == 200) {
         Navigator.pushNamed(context, '/discover');
-      }
+
+    }
       else {
-        Scaffold
-            .of(context)
-            .showSnackBar(SnackBar(content:
-              Text('Incorrect email or password')));
+        return Alert(context: context, title: "Login Unsuccessful").show();
       }
     }
     else {
-      Scaffold
-          .of(context)
-          .showSnackBar(SnackBar(content: Text('fill out fields properly')));
+      return Alert(context: context, title: "Please fill out the fields properly").show();
     }
   }
 
