@@ -6,105 +6,79 @@ import 'package:image_picker/image_picker.dart';
 
 class myProfileView extends StatelessWidget {
 
-  File file;
-
-  void _choose() async {
-    file = await ImagePicker.pickImage(source: ImageSource.gallery);
-  }
-
-  void _upload() {
-    print("uploading: ");
-    if (file == null) {
-      print("Null file");
-      return;
-    }
-    else print(file.path.split("/").last);
-    String base64Image = base64Encode(file.readAsBytesSync());
-    String fileName = file.path.split("/").last;
-
-    http.post('http://jam.smpark.in/login', body: {
-      "image": base64Image,
-      "name": fileName,
-    }).then((res) {
-      print(res.statusCode);
-    }).catchError((err) {
-      print(err);
-    });
-  }
-
+  final name = _getName();
+  final bio = _getBio();
+  //final genres = _getGenres();
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var width = screenSize.width;
+    var height = screenSize.height;
     return Scaffold(
       appBar: AppBar(
         title: Text("My Profile"),
       ),
-      body: Container(
-        height: 1000,
-        width: 400,
-        child: Column(
+      body: SafeArea(
+
+      child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-                width: 200,
-                child: Padding(
+            Align(
+              alignment: Alignment(1, 1),
+              child: RaisedButton(
+                color: Colors.red,
+                child: Text("Edit"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editProfileView');
+                },
+              ),
+            ), Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.indigo,
                     //backgroundImage: AssetImage(''),
                   ),
-                )),
+                ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                _getName(),
-                textAlign: TextAlign.left,
+                name,
                   style: TextStyle(fontWeight: FontWeight.bold)
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+            Align(
+              alignment: Alignment.centerLeft,
               child: Text(
-                _getBio(),
-                textAlign: TextAlign.left,
+                "Bio\n",
+                  style: TextStyle(fontWeight: FontWeight.bold)
               ),
             ),
-        Align(
-          alignment: Alignment.topRight,
-          child: RaisedButton(
-            child: Text("Edit"),
-            onPressed: () {
-              Navigator.pushNamed(context, '/editProfile');
-            },
-          ),
-        ),
-            Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: _choose,
-                      child: Text('Choose Image'),
-                    ),
-                    SizedBox(width: 10.0),
-                    RaisedButton(
-                      onPressed: _upload,
-                      child: Text('Upload Image'),
-                    )
-                  ],
-                ),
-                file == file
-                    ? Text('No Image Selected')
-                    : Image.file(file)// This doesn't work
-              ],
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                bio,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  "\nGenres\n",
+                  style: TextStyle(fontWeight: FontWeight.bold)
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                _getGenres(),
+              ),
             ),
           ],
-        ),
+            ),
       ),
-    );
+        );
   }
 }
 
@@ -114,8 +88,11 @@ _getName()  {
 }
 
 _getBio()  {
-  return 'Chloe';
+  return 'bio here';
 }
 
+_getGenres()  {
+  return 'genres here';
+}
 
 
