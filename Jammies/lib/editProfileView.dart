@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:async/async.dart';
 
 class editProfileView extends StatefulWidget {
   @override
@@ -15,29 +18,46 @@ class editProfileState extends State<editProfileView> {
     file = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
-  void _upload() {
+  void _upload() async {
     print("uploading: ");
     if (file == null) {
       print("Null file");
       return;
     }
-    else
-      print(file.path
-          .split("/")
-          .last);
-    String base64Image = base64Encode(file.readAsBytesSync());
+
+    print(file.path
+        .split("/")
+        .last);
+
     String fileName = file.path
         .split("/")
         .last;
 
-    http.post('http://jam.smpark.in/login', body: {
-      "image": base64Image,
-      "name": fileName,
-    }).then((res) {
-      print(res.statusCode);
-    }).catchError((err) {
-      print(err);
-    });
+    final prefs = await SharedPreferences.getInstance();
+
+    String email = prefs.getString('email');
+    String password = prefs.getString('password');
+
+
+    var stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
+    var length = await file.length();
+
+    var uri = Uri.parse('http://jam.smpark.in/upload');
+
+    var request = new http.MultipartRequest("POST", uri);
+
+    Map<String, String> header = {'email': email, 'password': password};
+
+    var multipartFile = new http.MultipartFile('file', stream, length,
+        filename: basename(file.path));
+
+    print("File size: " + length.toString());
+
+    request.files.add(multipartFile);
+    request.headers.addAll(header);
+    var response = await request.send();
+    print(response.statusCode);
+
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -53,7 +73,7 @@ class editProfileState extends State<editProfileView> {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Profile"),
+          title: Text("Edit Profile"),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

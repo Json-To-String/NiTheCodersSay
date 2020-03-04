@@ -4,6 +4,7 @@ import 'package:password/password.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginField extends StatefulWidget {
   @override
@@ -32,6 +33,7 @@ class loginFieldState extends State<loginField> {
   final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
+  String hashString = '';
 
   Widget build(BuildContext context) {
     return Form(
@@ -140,11 +142,13 @@ class loginFieldState extends State<loginField> {
       //final hash = Password.hash(passwordController.text, new PBKDF2());
       final hash = sha512.convert(utf8.encode(passwordController.text));
 
+      hashString = "$hash";
+
       final response = await http.post('http://jam.smpark.in/login', body: { 'email': emailController.text, 'password': "$hash" } );
 
       if(response.statusCode == 200) {
-        Navigator.pushNamed(context, '/discover');
-
+        _saveCredentials();
+        Navigator.pushNamed(context, '/editProfileView');
     }
       else {
         return Alert(context: context, title: "Login Unsuccessful").show();
@@ -153,6 +157,16 @@ class loginFieldState extends State<loginField> {
     else {
       return Alert(context: context, title: "Please fill out the fields properly").show();
     }
+  }
+
+  _saveCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('email', emailController.text);
+
+    prefs.setString('password', hashString);
+
+    print('saved email and password: ' + hashString);
   }
 
 }
