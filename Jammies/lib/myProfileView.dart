@@ -8,7 +8,6 @@ class myProfileView extends StatelessWidget {
 
   final name = _getName();
   final bio = _getBio();
-  //final genres = _getGenres();
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +24,7 @@ class myProfileView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment(1, 1),
-              child: RaisedButton(
-                color: Colors.red,
-                child: Text("Edit"),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/editProfileView');
-                },
-              ),
-            ), Padding(
+         Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: CircleAvatar(
                     radius: 50,
@@ -63,16 +53,13 @@ class myProfileView extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  "\nGenres\n",
-                  style: TextStyle(fontWeight: FontWeight.bold)
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _getGenres(),
+              alignment: Alignment.bottomCenter,
+              child: RaisedButton(
+                color: Colors.red,
+                child: Text("Edit"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editProfileView');
+                },
               ),
             ),
           ],
@@ -89,10 +76,6 @@ _getName()  {
 
 _getBio()  {
   return 'bio here';
-}
-
-_getGenres()  {
-  return 'genres here';
 }
 
 
