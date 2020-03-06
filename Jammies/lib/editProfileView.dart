@@ -78,11 +78,6 @@ class editProfileState extends State<editProfileView> {
                       onPressed: _choose,
                       child: Text('Choose Image'),
                     ),
-                    SizedBox(width: 10.0),
-                    RaisedButton(
-                      onPressed: _upload,
-                      child: Text('Upload Image'),
-                    )
                   ],
                 ),
                 file == file
