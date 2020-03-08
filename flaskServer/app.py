@@ -91,5 +91,49 @@ def login():
         return Response("{'status':'Valid email and password'}", status=200, mimetype='application/json')
     return Response("{'error':'Not valid password'}", status=401, mimetype='application/json')
 
+
+# update Profile Table
+@app.route('/updateProfile', methods=["POST"])
+def updateProfile():
+    if request.json != None:
+        data = request.json
+    else:
+        data = request.form
+
+    # retrieve info from input
+    try:
+        email = data['email']
+
+        about_me = data['about_me']
+        bio = data['bio']
+        pic_path = data['pic_path']
+        spotify_key = data['spotify_key']
+        soundcloud_key = data['soundcloud_key']
+    except:
+        return Response("{'error':'Not all Profile fields provided'}", status=400, mimetype='application/json')
+
+    # retrieve user
+    user = Users.query.filter_by(email=email).first()
+    # guard just in case given email is incorrect
+    if user == None:
+        return Response("{'error':'No such user'}", status=422, mimetype='application/json')
+
+    # retrieve profile
+    profile = Profiles.query.filter_by(id=user.id).first()
+    # guard just in case email is no profile found
+    if profile == None:
+        return Response("{'error':'No such profile'}", status=422, mimetype='application/json')
+
+    # updating profile
+    profile.about_me = about_me
+    profile.bio = bio
+    profile.pic_path = pic_path
+    profile.spotify_key = spotify_key
+    profile.soundcloud_key = soundcloud_key
+
+    db.session.commit()
+
+    return Response("{'status':'Profile updated in db'}", status=200, mimetype='application/json')
+
 if __name__ == '__main__':
     app.run()
