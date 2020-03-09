@@ -203,7 +203,6 @@ def getProfile():
     about_me = profile.about_me
     bio = profile.bio
 
-    return Response(jsonify(name=name, about_me=about_me, bio=bio), status=420, mimetype='application/json')
-
+    return jsonify(name=name, about_me=about_me, bio=bio)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
