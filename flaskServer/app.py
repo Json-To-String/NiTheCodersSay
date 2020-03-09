@@ -59,7 +59,7 @@ def upload():
         return Response("{'error':'Incorrect email or password'}", status=401, mimetype='application/json')
 
     try:
-        image = request.files['profile']
+        image = request.files['file']
         filename = secure_filename(email)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return Response("{'status':'Saved image'}", status=200, mimetype='application/json')
@@ -139,7 +139,6 @@ def verify(email, password):
     if (password == user.password):
         return True
     return False
-
 
 # update Profile Table
 @app.route('/updateProfile', methods=["POST"])
