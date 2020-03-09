@@ -13,7 +13,7 @@ class JamFinderApp extends StatelessWidget {
     return MaterialApp(
       title: 'JamFinder',
       theme: ThemeData(
-        brightness: Brightness.dark,
+//        brightness: Brightness.dark,
         primarySwatch: Colors.indigo,
       ),
       initialRoute: '/',
