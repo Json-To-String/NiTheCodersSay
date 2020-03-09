@@ -107,8 +107,9 @@ def updateProfile():
         about_me = data['about_me']
         bio = data['bio']
         pic_path = data['pic_path']
-        spotify_key = data['spotify_key']
-        soundcloud_key = data['soundcloud_key']
+        
+        #spotify_key = data['spotify_key']
+        #soundcloud_key = data['soundcloud_key']
     except:
         return Response("{'error':'Not all Profile fields provided'}", status=400, mimetype='application/json')
 
@@ -120,7 +121,7 @@ def updateProfile():
 
     # retrieve profile
     profile = Profiles.query.filter_by(id=user.id).first()
-    # guard just in case email is no profile found
+    # guard just in case there is no profile found
     if profile == None:
         return Response("{'error':'No such profile'}", status=422, mimetype='application/json')
 
@@ -128,12 +129,13 @@ def updateProfile():
     profile.about_me = about_me
     profile.bio = bio
     profile.pic_path = pic_path
-    profile.spotify_key = spotify_key
-    profile.soundcloud_key = soundcloud_key
+    
+    #profile.spotify_key = spotify_key
+    #profile.soundcloud_key = soundcloud_key
 
     db.session.commit()
 
     return Response("{'status':'Profile updated in db'}", status=200, mimetype='application/json')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=4200)
