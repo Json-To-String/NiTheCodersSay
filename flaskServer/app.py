@@ -140,8 +140,6 @@ def verify(email, password):
         return True
     return False
 
-
-# update Profile Table
 @app.route('/updateProfile', methods=["POST"])
 def updateProfile():
     if request.json != None:
@@ -149,18 +147,44 @@ def updateProfile():
     else:
         data = request.form
 
-    # retrieve info from input
     try:
         email = data['email']
-
         about_me = data['about_me']
         bio = data['bio']
         pic_path = data['pic_path']
-        
         #spotify_key = data['spotify_key']
         #soundcloud_key = data['soundcloud_key']
     except:
         return Response("{'error':'Not all Profile fields provided'}", status=400, mimetype='application/json')
+
+    user = Users.query.filter_by(email=email).first()
+    if user == None:
+        return Response("{'error':'No such user'}", status=422, mimetype='application/json')
+
+    profile = Profiles.query.filter_by(id=user.id).first()
+    if profile == None:
+        return Response("{'error':'No such profile'}", status=422, mimetype='application/json')
+
+    profile.about_me = about_me
+    profile.bio = bio
+    profile.pic_path = pic_path
+    #profile.spotify_key = spotify_key
+    #profile.soundcloud_key = soundcloud_key
+
+    db.session.commit()
+    return Response("{'status':'Profile updated in db'}", status=200, mimetype='application/json')
+
+
+# get profile from Profile Table
+@app.route('/getProfile', methods=["GET"])
+def getProfile():
+    email = request.headers['email']
+    password = request.headers['password']
+
+    valid = verify(email, password)
+
+    if not valid:
+        return Response("{'error':'Incorrect email or password'}", status=401, mimetype='application/json')
 
     # retrieve user
     user = Users.query.filter_by(email=email).first()
@@ -175,16 +199,11 @@ def updateProfile():
         return Response("{'error':'No such profile'}", status=422, mimetype='application/json')
 
     # updating profile
-    profile.about_me = about_me
-    profile.bio = bio
-    profile.pic_path = pic_path
-    
-    #profile.spotify_key = spotify_key
-    #profile.soundcloud_key = soundcloud_key
+    name = user.name
+    about_me = profile.about_me
+    bio = profile.bio
 
-    db.session.commit()
-
-    return Response("{'status':'Profile updated in db'}", status=200, mimetype='application/json')
+    return Response(jsonify(name=name, about_me=about_me, bio=bio), status=420, mimetype='application/json')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
