@@ -59,7 +59,7 @@ def upload():
         return Response("{'error':'Incorrect email or password'}", status=401, mimetype='application/json')
 
     try:
-        image = request.files['profile']
+        image = request.files['file']
         filename = secure_filename(email)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return Response("{'status':'Saved image'}", status=200, mimetype='application/json')
@@ -140,6 +140,7 @@ def verify(email, password):
         return True
     return False
 
+
 @app.route('/updateProfile', methods=["POST"])
 def updateProfile():
     if request.json != None:
@@ -168,6 +169,7 @@ def updateProfile():
     profile.about_me = about_me
     profile.bio = bio
     profile.pic_path = pic_path
+    
     #profile.spotify_key = spotify_key
     #profile.soundcloud_key = soundcloud_key
 
@@ -204,5 +206,6 @@ def getProfile():
     bio = profile.bio
 
     return jsonify(name=name, about_me=about_me, bio=bio)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
