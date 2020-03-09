@@ -60,15 +60,17 @@ class editProfileState extends State<editProfileView> {
 
   }
 
+  final bio = _getBio();
   final _formKey = GlobalKey<FormState>();
-
+  //final bioController = new TextEditingController();
+/*
+  void initState() {
+    bioController.text = bio;
+    return super.initState();
+  }
+*/
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
-    var width = screenSize.width;
-    var height = screenSize.height;
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -87,39 +89,6 @@ class editProfileState extends State<editProfileView> {
                 //backgroundImage: AssetImage(''),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Text(
-                  _getName(),
-                  style: TextStyle(fontWeight: FontWeight.bold)
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  "Bio\n",
-                  style: TextStyle(fontWeight: FontWeight.bold)
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _getBio(),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  "\nGenres\n",
-                  style: TextStyle(fontWeight: FontWeight.bold)
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _getGenres(),
-              ),
-            ),
             Column(
               children: <Widget>[
                 Row(
@@ -129,11 +98,6 @@ class editProfileState extends State<editProfileView> {
                       onPressed: _choose,
                       child: Text('Choose Image'),
                     ),
-                    SizedBox(width: 10.0),
-                    RaisedButton(
-                      onPressed: _upload,
-                      child: Text('Upload Image'),
-                    )
                   ],
                 ),
                 file == file
@@ -141,6 +105,39 @@ class editProfileState extends State<editProfileView> {
                     : Image.file(file) // This doesn't work
               ],
             ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                  "\nBio\n",
+                  style: TextStyle(fontWeight: FontWeight.bold)
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: TextFormField(
+                //inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(100)],
+                  validator: (value) {
+                    if(value.length == 0) {
+                      return "Please enter a bio";
+                    }
+                    return null;
+                  },
+                  //controller: bioController,
+                  obscureText: false,
+                  initialValue: bio,
+              ),
+            ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: RaisedButton(
+          child: Text("Submit"),
+          color: Colors.teal[300],
+          onPressed: () {
+            _submitForm;
+            Navigator.pushNamed(context, '/myProfileView');
+          },
+        ),
+      ),
           ],
         ),
       ),
@@ -157,8 +154,8 @@ _getBio()  {
   return 'bio here';
 }
 
-_getGenres()  {
-  return 'genres here';
+_submitForm() async {
 }
+
 
 

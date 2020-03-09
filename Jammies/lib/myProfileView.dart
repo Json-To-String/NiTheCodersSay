@@ -3,18 +3,24 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class myProfileView extends StatelessWidget {
 
   final name = _getName();
   final bio = _getBio();
-  //final genres = _getGenres();
+
+  var client = http.Client();
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width;
     var height = screenSize.height;
+
+    _getUserInfo();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Profile"),
@@ -25,16 +31,7 @@ class myProfileView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment(1, 1),
-              child: RaisedButton(
-                color: Colors.red,
-                child: Text("Edit"),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/editProfileView');
-                },
-              ),
-            ), Padding(
+         Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
                   child: CircleAvatar(
                     radius: 50,
@@ -63,23 +60,39 @@ class myProfileView extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  "\nGenres\n",
-                  style: TextStyle(fontWeight: FontWeight.bold)
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                _getGenres(),
+              alignment: Alignment.bottomCenter,
+              child: RaisedButton(
+                color: Colors.red,
+                child: Text("Edit"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/editProfileView');
+                },
               ),
             ),
           ],
             ),
       ),
-        );
+    );
   }
+
+  _getUserInfo() async {
+    var request = http.Request("GET", Uri.parse('http://jam.smpark.in/getProfile'));
+
+    final prefs = await SharedPreferences.getInstance();
+
+    String email = prefs.getString('email');
+    String password = prefs.getString('password');
+
+    Map<String, String> header = {'email': email, 'password': password };
+
+    request.headers.addAll(header);
+
+    var response = await request.send();
+
+    print(response.toString());
+
+  }
+
 }
 
 
@@ -89,10 +102,6 @@ _getName()  {
 
 _getBio()  {
   return 'bio here';
-}
-
-_getGenres()  {
-  return 'genres here';
 }
 
 
